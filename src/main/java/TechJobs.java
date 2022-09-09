@@ -1,3 +1,4 @@
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -5,6 +6,10 @@ import java.util.Scanner;
 
 /**
  * Created by LaunchCode
+ * Windows users...I have a solution that got me to start passing tests in IntelliJ. The issue is that the hard coding of a newline using
+ * "\n" in the JobData and TechJobs files (which we can edit) causes a conflict in IntelliJ for us Windows users.
+ *  The fix is to remove all instances of "\n" in both files (there are only a few) and use "System.out.println()"
+ *  as needed. That will create a "carriage return" that will be interpreted correctly no matter if you are working in Windows, Mac, Linux..etc.
  */
 public class TechJobs {
 
@@ -43,8 +48,8 @@ public class TechJobs {
                 } else {
 
                     ArrayList<String> results = JobData.findAll(columnChoice);
-
-                    System.out.println("\n*** All " + columnChoices.get(columnChoice) + " Values ***");
+                    System.out.println();
+                    System.out.println("*** All " + columnChoices.get(columnChoice) + " Values ***");
 
                     // Print list of skills, employers, etc
                     for (String item : results) {
@@ -58,7 +63,8 @@ public class TechJobs {
                 String searchField = getUserSelection("Search by:", columnChoices);
 
                 // What is their search term?
-                System.out.println("\nSearch term:");
+                System.out.println();
+                System.out.println("Search term:");
                 String searchTerm = in.nextLine();
 
                 if (searchField.equals("all")) {
@@ -86,8 +92,8 @@ public class TechJobs {
         }
 
         do {
-
-            System.out.println("\n" + menuHeader);
+            System.out.println();
+            System.out.println( menuHeader);
 
             // Print available choices
             for (int j = 0; j < choiceKeys.length; j++) {
@@ -119,7 +125,22 @@ public class TechJobs {
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
+        if(someJobs.size() < 1){
+            System.out.println("No Results");
+        }else {
 
-        System.out.println("printJobs is not implemented yet");
+
+            for (int i = 0; i < someJobs.size(); i++) {
+                System.out.println("*****");
+                for (String key : someJobs.get(i).keySet()) {
+                    System.out.println(key + " = " + someJobs.get(i).get(key));
+                }
+                System.out.println("*****");
+                System.out.println();
+
+            }
+
+        }
+
     }
 }

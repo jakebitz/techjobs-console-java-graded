@@ -12,6 +12,10 @@ import java.util.List;
 
 /**
  * Created by LaunchCode
+ * Windows users...I have a solution that got me to start passing tests in IntelliJ. The issue is that the hard coding of a newline using
+ * "\n" in the JobData and TechJobs files (which we can edit) causes a conflict in IntelliJ for us Windows users.
+ *  The fix is to remove all instances of "\n" in both files (there are only a few) and use "System.out.println()" as needed.
+ *  That will create a "carriage return" that will be interpreted correctly no matter if you are working in Windows, Mac, Linux..etc.
  */
 public class JobData {
 
@@ -95,12 +99,38 @@ public class JobData {
      */
     public static ArrayList<HashMap<String, String>> findByValue(String value) {
 
-        // load data, if not already loaded
-        loadData();
 
-        // TODO - implement this method
-        return null;
-    }
+            // load data, if not already loaded
+            loadData();
+
+            // Load data
+            // Create empty jobs arraylist -- end up containing all jobs that have the search term
+            // Loop through all of the jobs
+            // In any of the columns, is the search term found?
+            // If it is found, then add this row to our 'jobs' arraylist
+
+//            System.out.println("In find by value function");
+            ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+            for (HashMap<String, String> row : allJobs) {
+                boolean add = false;
+                for (String key: row.keySet()){
+                    if(row.get(key).contains(value)) {
+                        add = true;
+                    }
+                }
+                if(add) {
+                    jobs.add(row);
+                }
+            }
+
+            // TODO - implement this method
+            return jobs;
+        }
+
+
+
+
 
     /**
      * Read in data from a CSV file and store it in a list
@@ -138,6 +168,7 @@ public class JobData {
             isDataLoaded = true;
 
         } catch (IOException e) {
+
             System.out.println("Failed to load job data");
             e.printStackTrace();
         }
