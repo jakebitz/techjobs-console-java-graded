@@ -78,11 +78,11 @@ public class JobData {
         loadData();
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
-
+        value = value.toUpperCase();
         for (HashMap<String, String> row : allJobs) {
 
             String aValue = row.get(column);
-
+            aValue = aValue.toUpperCase();
             if (aValue.contains(value)) {
                 jobs.add(row);
             }
@@ -111,11 +111,13 @@ public class JobData {
 
 //            System.out.println("In find by value function");
             ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+            value = value.toUpperCase();
 
             for (HashMap<String, String> row : allJobs) {
                 boolean add = false;
                 for (String key: row.keySet()){
-                    if(row.get(key).contains(value)) {
+
+                    if(row.get(key).toUpperCase().contains(value)) {
                         add = true;
                     }
                 }
